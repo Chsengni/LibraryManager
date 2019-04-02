@@ -1,6 +1,3 @@
-// BookQueryImprove.java
-
-
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
@@ -11,14 +8,14 @@ public class BookQueryImprove extends Frame implements ActionListener {
 	TextArea bookName;
 	Button button;
 
-	BookQueryImprove() { // ¹¹Ôì·½·¨
-		super("Í¼Êé²éÑ¯");
+	BookQueryImprove() { // æ„é€ æ–¹æ³•
+		super("å›¾ä¹¦æŸ¥è¯¢");
 		setBounds(150, 150, 300, 300);
 		seriesName = new TextField(16);
 		bookName = new TextArea(5, 10);
-		button = new Button("È·¶¨");
+		button = new Button("ç¡®å®š");
 		Panel p1 = new Panel(), p2 = new Panel();
-		p1.add(new Label("ÇëÊäÈë´ÔÊéÃû£º"));
+		p1.add(new Label("è¯·è¾“å…¥ä¸›ä¹¦åï¼š"));
 		p1.add(seriesName);
 		p2.add(button);
 		add(p1, "North");
@@ -30,15 +27,15 @@ public class BookQueryImprove extends Frame implements ActionListener {
 				System.exit(0);
 			}
 		});
-		setLocationRelativeTo(null); // Ê¹´°ÌåÔÚÆÁÄ»ÉÏ¾ÓÖĞ·ÅÖÃ
-		setVisible(true); // ÏÔÊ¾´°Ìå
+		setLocationRelativeTo(null); // ä½¿çª—ä½“åœ¨å±å¹•ä¸Šå±…ä¸­æ”¾ç½®
+		setVisible(true); // æ˜¾ç¤ºçª—ä½“
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		// Èç¹ûµ±Ç°µ¥»÷¶ÔÏóÎª°´Å¥
+		// å¦‚æœå½“å‰å•å‡»å¯¹è±¡ä¸ºæŒ‰é’®
 		if (e.getSource() == button) {
 			try {
-				bookName.setText(null); // Çå¿ÕÎÄ±¾Çø
+				bookName.setText(null); // æ¸…ç©ºæ–‡æœ¬åŒº
 				ListStudent();
 			} catch (SQLException ee) {
 			}
@@ -47,38 +44,38 @@ public class BookQueryImprove extends Frame implements ActionListener {
 
 	private void ListStudent() throws SQLException {
 		String bn1, bn2, sqlcmd;
-		// »ñÈ¡ÊäÈëµÄ´ÔÊé´úºÅ
+		// è·å–è¾“å…¥çš„ä¸›ä¹¦ä»£å·
 		bn1 = seriesName.getText();
-		// Èç¹û´ÔÊé´úºÅÎª¿Õ£¬ÔòÖ±½Ó·µ»Ø
+		// å¦‚æœä¸›ä¹¦ä»£å·ä¸ºç©ºï¼Œåˆ™ç›´æ¥è¿”å›
 		if (bn1.length()==0){
 			return;
 		}
 		try {
-			// ¼ÓÔØJDBC-ODBCÇı¶¯³ÌĞò
+			// åŠ è½½JDBC-ODBCé©±åŠ¨ç¨‹åº
 			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
 		} catch (ClassNotFoundException e) {
 		}
-		// ´´½¨Êı¾İ¿âÁ¬½Ó
+		// åˆ›å»ºæ•°æ®åº“è¿æ¥
 		Connection con = DriverManager.getConnection("jdbc:odbc:javaodbc");
-		// ´´½¨Statement¶ÔÏó
+		// åˆ›å»ºStatementå¯¹è±¡
 		Statement st = con.createStatement();
-		// ¶Á³öÈ«²¿¼ÇÂ¼£¬µÃµ½½á¹û¼¯ResultSet¶ÔÏó
-		// ´´½¨SQLÓï¾ä£¬like±íÊ¾Ä£ºıÆ¥Åä£¬%±íÊ¾ÈÎÒâ×Ö·û´®
-		// ¡°´ÔÊé´úºÅ like 'ÊäÈëµÄ´ÔÊé´úºÅ×Ö·û´®%'¡±±íÊ¾²éÕÒ´ÔÊé´úºÅÎª
-		// ÒÔÊäÈëµÄ´ÔÊé´úºÅ×Ö·û´®¿ªÍ·µÄÈ«²¿´ÔÊé
-		sqlcmd = "select * from ÊéÄ¿ÃûÂ¼ where ´ÔÊé´úºÅ like '";
+		// è¯»å‡ºå…¨éƒ¨è®°å½•ï¼Œå¾—åˆ°ç»“æœé›†ResultSetå¯¹è±¡
+		// åˆ›å»ºSQLè¯­å¥ï¼Œlikeè¡¨ç¤ºæ¨¡ç³ŠåŒ¹é…ï¼Œ%è¡¨ç¤ºä»»æ„å­—ç¬¦ä¸²
+		// â€œä¸›ä¹¦ä»£å· like 'è¾“å…¥çš„ä¸›ä¹¦ä»£å·å­—ç¬¦ä¸²%'â€è¡¨ç¤ºæŸ¥æ‰¾ä¸›ä¹¦ä»£å·ä¸º
+		// ä»¥è¾“å…¥çš„ä¸›ä¹¦ä»£å·å­—ç¬¦ä¸²å¼€å¤´çš„å…¨éƒ¨ä¸›ä¹¦
+		sqlcmd = "select * from ä¹¦ç›®åå½• where ä¸›ä¹¦ä»£å· like '";
 		sqlcmd = sqlcmd + bn1 + "%'";
-		// Ö´ĞĞSQLÓï¾ä
+		// æ‰§è¡ŒSQLè¯­å¥
 		ResultSet rs = st.executeQuery(sqlcmd);
 		boolean boo = false;
 		while (rs.next()) {
-			bn2 = rs.getString("ÊéÃû"); // ¶ÁÈ¡ÊéÃû
+			bn2 = rs.getString("ä¹¦å"); // è¯»å–ä¹¦å
 			bookName.append(bn2 + "\n");
-			boo = true; // ¸ÃÏµÁĞ´ÔÊé²»Îª¿Õ
+			boo = true; // è¯¥ç³»åˆ—ä¸›ä¹¦ä¸ä¸ºç©º
 		}
 		con.close();
 		if (boo == false) {
-			bookName.append("¸ÃÏµÁĞ´ÔÊé²»´æÔÚ£¡");
+			bookName.append("è¯¥ç³»åˆ—ä¸›ä¹¦ä¸å­˜åœ¨ï¼");
 		}
 	}
 
